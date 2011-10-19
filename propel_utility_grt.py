@@ -151,8 +151,8 @@ class PropelUtilityGUI(mforms.Form):
 
   def ui_ok_cancel_button(self, box):
     tBox = PropelForm.spaced_box(True)
-    label = mforms.newLabel("remember to validate your changes by press OK, and save you .mwb file in MySQLWorkbench to save you Propel Utilty changes ;)")
-    tBox.add(label, False, True)
+    #label = mforms.newLabel("remember to validate your changes by press OK, and save you .mwb file in MySQLWorkbench to save you Propel Utilty changes ;)")
+    #tBox.add(label, False, True)
     self.cancelButton = mforms.newButton()
     self.cancelButton.set_text("cancel")
     tBox.add_end(self.cancelButton, False, True)
