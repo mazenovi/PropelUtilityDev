@@ -1,6 +1,6 @@
 import sys
-sys.path.append('./modules/PropelUtility')
-sys.path.append('./.mysql/workbench/modules/PropelUtility')
+import os
+sys.path.append(str(os.path.dirname(os.path.realpath(__file__))) + '/PropelUtility')
 # import the wb module
 from wb import *
 # import the grt module
@@ -102,7 +102,7 @@ class PropelUtilityGUI(mforms.Form):
   }
 
   defaults = {
-    'width':900,
+    'width':1040,
     'height':700,
     'tab_index':0
   }
@@ -144,7 +144,7 @@ class PropelUtilityGUI(mforms.Form):
   def header_box(self):
     headBox = mforms.newBox(True)
     img = mforms.newImageBox()
-    img.set_image("./modules/PropelUtility/propel-logo.png")
+    img.set_image(str(os.path.dirname(os.path.realpath(__file__))) + '/PropelUtility/propel-logo.png')
     img.set_size(self.defaults['width']/2-PropelForm.defaults['space']*2, 100)
     headBox.add(img, False, False)
     return headBox
