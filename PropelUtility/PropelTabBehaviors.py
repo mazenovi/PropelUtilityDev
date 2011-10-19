@@ -25,7 +25,7 @@ class PropelTabBehaviors(PropelTabGrid):
     self.widgets['behaviors'] = mforms.newTreeView(1)
     self.search('behaviors')
     self.colmuns_name('behaviors')
-    self.remove_behavior_button()
+    self.add_remove_behavior_button()
     self.add_end(self.widgets['behaviors'], True, True)
     
 
@@ -87,13 +87,33 @@ class PropelTabBehaviors(PropelTabGrid):
         setattr(b, 'set_parameter_' + parameterName, value)
     self.find_rows(self.widgets['behaviors'].get_selected()+1)
 
-  def remove_behavior_button(self):
-    tBox = PropelForm.spaced_box(False)
+  def add_remove_behavior_button(self):
+    tBox = PropelForm.spaced_box(True)
+    self.widgets['selectBehaviors'] = mforms.newSelector(mforms.SelectorPopup)
+    self.widgets['selectBehaviors'].add_items(PropelBehavior.fields['name']['items'])
+    tBox.add(self.widgets['selectBehaviors'], False, True)
+    addBehavior = mforms.newButton()
+    addBehavior.set_text("add selected behavior to selected table")
+    addBehavior.add_clicked_callback(lambda: self.add_behavior())
+    tBox.add(addBehavior, False, True)
     removeBehavior = mforms.newButton()
-    removeBehavior.set_text("remove behavior this")
+    removeBehavior.set_text("remove this behavior")
     removeBehavior.add_clicked_callback(lambda: self.remove_behavior())
     tBox.add(removeBehavior, False, True)
     self.add_end(tBox, False, True)
+
+  def add_behavior(self):
+    behaviorName = str(self.widgets['selectBehaviors'].get_string_value())
+    tableName = self.widgets['behaviors'].get_string(self.widgets['behaviors'].get_selected(), self.fields_list.index('table'))
+    if behaviorName and tableName:
+      for table in self.db.tables:
+        if table.get_name == tableName:
+          t = table
+          break
+      t.behaviors.append(PropelBehavior({'name':behaviorName}, t))
+      self.find_rows(self.widgets['behaviors'].get_selected()+1)
+    else:
+      mforms.Utilities.show_warning("Warning", "Please select a table row with a not null 'name' column to add a behavior", "OK", "", "")
 
   def remove_behavior(self):
     behaviorName = self.widgets['behaviors'].get_string(self.widgets['behaviors'].get_selected(), self.fields_list.index('name'))

@@ -19,8 +19,8 @@ class PropelBehavior(PropelObject):
     'nested_set':('left_column', 'right_column', 'level_column', 'use_scope', 'scope_column','method_proxies'),
     'query_cache':('backend', 'lifetime'),
     'sluggable':('slug_column', 'slug_pattern', 'replace_pattern', 'replacement', 'separator', 'permanent'),
-    'timestampable':('create_column', 'update_column'),
     'sortable':('rank_column', 'use_scope', 'scope_column'),
+    'timestampable':('create_column', 'update_column'),
     'versionable':('version_table', 'version_column', 'log_created_at', 'log_created_by', 'log_comment')
   }
   
@@ -49,8 +49,8 @@ class PropelBehavior(PropelObject):
         'nested_set',
         'query_cache',
         'sluggable',
-        'timestampable',
         'sortable',
+        'timestampable',
         'versionable'
     ],
       'optional':False
