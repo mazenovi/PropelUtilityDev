@@ -177,7 +177,7 @@ def PropelUtility(catalog):
   form.run()
   return 0
 
-@ModuleInfo.plugin("wb.catalog.util.PropelErase", caption= "Propel Erase All Propel Data", input= [wbinputs.currentCatalog()], pluginMenu= "Catalog", type="standalone")
+@ModuleInfo.plugin("wb.catalog.util.PropelErase", caption= "Propel Erase All Data", input= [wbinputs.currentCatalog()], pluginMenu= "Catalog", type="standalone")
 @ModuleInfo.export(grt.INT, grt.classes.db_Catalog)
 
 def PropelErase(catalog):
