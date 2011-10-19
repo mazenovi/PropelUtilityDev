@@ -13,11 +13,23 @@ class PropelTabColumns(PropelTabGrid):
     'table',
     'name',
     'phpName',
-    'type',
-    'size',    
+    'peerName',
     'primaryKey',
+    'required',
+    'type',
+    'phpType',
+    'sqlType',
+    'size',
+    'scale',
+    'defaultValue',
+    'defaultExpr',
+    'valueSet',
     'autoIncrement',
-    'required'
+    'lazyLoad',
+    'description',
+    'primaryString',
+    'phpNamingMethod',
+    'inheritance'
   ]
 
   def __init__(self, bool, name, db):

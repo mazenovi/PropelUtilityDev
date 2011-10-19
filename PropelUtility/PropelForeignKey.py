@@ -58,21 +58,44 @@ class PropelForeignKey(PropelObject):
       'width':100,
       'optional':True
     },
-    'onDelete':{
-      'label':'on delete',
+    'refPhpName':{
+      'label':'refPhpName',
       'type':mforms.StringColumnType,
-      'default':'none',
-      'items': ['cascade', 'setnull', 'restrict', 'none'],
+      'default':'',
       'editable':True,
       'width':100,
       'optional':True
     },
-    'onUpdate':{
-      'label':'on update',
+    'onDelete':{
+      'label':'onDelete',
       'type':mforms.StringColumnType,
-      'default':'none',
-      'items': ['cascade', 'setnull', 'restrict', 'none'],
+      'default':'NO ACTION',
+      'editable':False,
+      'width':100,
+      'optional':True
+    },
+    'onUpdate':{
+      'label':'onUpdate',
+      'type':mforms.StringColumnType,
+      'default':'NO ACTION',
+      'editable':False,
+      'width':100,
+      'optional':True
+    },
+    'skipSql':{
+      'label':'skipSql',
+      'type':mforms.CheckColumnType,
+      'default':0,
       'editable':True,
+      'width':100,
+      'optional':True
+    },
+    'defaultJoin':{
+      'label':'defaultJoin',
+      'type':mforms.StringColumnType,
+      'items': ['Criteria::INNER_JOIN', 'Criteria::LEFT_JOIN'],
+      'default':'',
+      'editable':False,
       'width':100,
       'optional':True
     }
@@ -94,6 +117,10 @@ class PropelForeignKey(PropelObject):
     if re.search('get_', name):
       if name[4:] == 'table':
         return str(self.wbObject.owner.name)
+      elif name[4:] == 'onUpdate':
+        return str(self.wbObject.updateRule)
+      elif name[4:] == 'onDelete':
+        return str(self.wbObject.deleteRule)
       elif name[4:] == 'foreignTable':
         return str(self.wbObject.referencedTable.name)
       elif name[4:15] == 'localColumn':

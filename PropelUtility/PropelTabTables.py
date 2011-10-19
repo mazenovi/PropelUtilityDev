@@ -15,7 +15,20 @@ class PropelTabTables(PropelTabGrid):
     'idMethod',
     'phpName',
     'package',
-    'readOnly'
+    'schema',
+    'namespace',
+    'skipSql',
+    'abstract',
+    'phpNamingMethod',
+    'baseClass',
+    'basePeer',
+    'description',
+    'heavyIndexing',
+    'readOnly',
+    'treeMode',
+    'reloadOnInsert',
+    'reloadOnUpdate',
+    'allowPkInsert'
   ]
 
   def __init__(self, bool, name, db):

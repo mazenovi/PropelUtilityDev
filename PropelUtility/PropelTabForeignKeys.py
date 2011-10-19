@@ -16,8 +16,11 @@ class PropelTabForeignKeys(PropelTabGrid):
     'localColumn',    
     'foreignColumn',
     'phpName',
+    'refPhpName',
     'onDelete',
-    'onUpdate'
+    'onUpdate',
+    'skipSql',
+    'defaultJoin'
   ]
 
   def __init__(self, bool, name, db):

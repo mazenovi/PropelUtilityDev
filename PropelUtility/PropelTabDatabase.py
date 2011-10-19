@@ -12,7 +12,14 @@ class PropelTabDatabase(PropelTabGrid):
   fields_list = [
     'name',
     'defaultIdMethod',
-    'package'
+    'package',
+    'schema',
+    'namespace',
+    'baseClass',
+    'basePeer',
+    'defaultPhpNamingMethod',
+    'heavyIndexing',
+    'tablePrefix'
   ]
 
   def __init__(self, bool, name, db):
@@ -24,8 +31,8 @@ class PropelTabDatabase(PropelTabGrid):
     self.add_end(self.widgets['database'], True, True)
 
   def colmuns_name(self):
-    self.widgets['database'].add_column(mforms.StringColumnType, 'attribute', 200, False)
-    self.widgets['database'].add_column(mforms.StringColumnType, 'value', 300, True)
+    self.widgets['database'].add_column(mforms.StringColumnType, 'attribute', 350, False)
+    self.widgets['database'].add_column(mforms.StringColumnType, 'value', 350, True)
     self.widgets['database'].add_activated_callback(getattr(self, 'activate_field'))
     self.widgets['database'].set_cell_edited_callback(getattr(self, 'edit_field'))
     self.find_rows(0)
@@ -35,7 +42,7 @@ class PropelTabDatabase(PropelTabGrid):
     for fieldName in self.fields_list:
       row = self.widgets['database'].add_row()
       self.widgets['database'].set_string(row, 0, fieldName)
-      self.widgets['database'].set_string(row, 1, getattr(self.db, 'get_' + fieldName))
+      self.widgets['database'].set_string(row, 1, str(getattr(self.db, 'get_' + fieldName)))
     self.widgets['database'].set_selected(selected_row)
     
   def activate_field(self, edited_row, edited_col):

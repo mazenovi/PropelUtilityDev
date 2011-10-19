@@ -21,8 +21,8 @@ class PropelDatabase(PropelObject):
     'defaultIdMethod':{
       'label':'default id method',
       'type':mforms.StringColumnType,
-      'items': ["native", "none"],
-      'default':'none',
+      'items': ['native', 'none'],
+      'default':'native',
       'editable':True,
       'width':100,
       'optional':False
@@ -34,10 +34,69 @@ class PropelDatabase(PropelObject):
       'editable':True,
       'width':100,
       'optional':True
-    }    
+    },
+    'schema':{
+      'label':'schema',
+      'type':mforms.StringColumnType,
+      'default':'',
+      'editable':True,
+      'width':100,
+      'optional':True
+    },
+    'namespace':{
+      'label':'namespace',
+      'type':mforms.StringColumnType,
+      'default':'',
+      'editable':True,
+      'width':100,
+      'optional':True
+    },
+    'baseClass':{
+      'label':'baseClass',
+      'type':mforms.StringColumnType,
+      'default':'',
+      'editable':True,
+      'width':100,
+      'optional':True
+    },
+    'basePeer':{
+      'label':'basePeer',
+      'type':mforms.StringColumnType,
+      'default':'',
+      'editable':True,
+      'width':100,
+      'optional':True
+    },
+    'defaultPhpNamingMethod':{
+      'label':'defaultPhpNamingMethod',
+      'type':mforms.StringColumnType,
+      'items': ['nochange', 'underscore', 'phpname', 'clean'],
+      'default':'underscore',
+      'editable':True,
+      'width':100,
+      'optional':True
+    },
+    'heavyIndexing':{
+      'label':'heavyIndexing',
+      'type':mforms.StringColumnType,
+      'items': ['True', 'False'],
+      'default':'True',
+      'editable':True,
+      'width':100,
+      'optional':True
+    },
+    'tablePrefix':{
+      'label':'tablePrefix',
+      'type':mforms.StringColumnType,
+      'default':'',
+      'editable':True,
+      'width':100,
+      'optional':True
+    }
   }
 
   def __init__(self, catalog):
+
     self.wbObject = catalog
     self.tables = []
     self.cache = {}

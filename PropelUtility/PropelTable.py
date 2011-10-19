@@ -18,7 +18,7 @@ class PropelTable(PropelObject):
       'optional':False
     },
     'idMethod':{
-      'label':'id method',
+      'label':'idMethod',
       'type':mforms.StringColumnType,
       'default':'none',
       'items': ['native', 'none'],
@@ -42,10 +42,116 @@ class PropelTable(PropelObject):
       'width':100,
       'optional':True
     },
-    'readOnly':{
-      'label':'read only',
+    'schema':{
+      'label':'schema',
+      'type':mforms.StringColumnType,
+      'default':'',
+      'editable':True,
+      'width':100,
+      'optional':True
+    },
+    'namespace':{
+      'label':'namespace',
+      'type':mforms.StringColumnType,
+      'default':'',
+      'editable':True,
+      'width':100,
+      'optional':True
+    },
+    'skipSql':{
+      'label':'skipSql',
       'type':mforms.CheckColumnType,
-      'default': 0,
+      'default':0,
+      'editable':True,
+      'width':100,
+      'optional':True
+    },
+    'abstract':{
+      'label':'abstract',
+      'type':mforms.CheckColumnType,
+      'default':0,
+      'editable':True,
+      'width':100,
+      'optional':True
+    },
+    'phpNamingMethod':{
+      'label':'phpNamingMethod',
+      'type':mforms.StringColumnType,
+      'items': ['nochange', 'underscore','phpname', 'clean'],
+      'default':'underscore',
+      'editable':True,
+      'width':100,
+      'optional':True
+    },
+    'baseClass':{
+      'label':'baseClass',
+      'type':mforms.StringColumnType,
+      'default':'',
+      'editable':True,
+      'width':100,
+      'optional':True
+    },
+    'basePeer':{
+      'label':'basePeer',
+      'type':mforms.StringColumnType,
+      'default':'',
+      'editable':True,
+      'width':100,
+      'optional':True
+    },
+    'description':{
+      'label':'description',
+      'type':mforms.StringColumnType,
+      'default':'',
+      'editable':True,
+      'width':100,
+      'optional':True
+    },
+    'heavyIndexing':{
+      'label':'heavyIndexing',
+      'type':mforms.CheckColumnType,
+      'default':0,
+      'editable':True,
+      'width':100,
+      'optional':True
+    },
+    'readOnly':{
+      'label':'readOnly',
+      'type':mforms.CheckColumnType,
+      'default':0,
+      'editable':True,
+      'width':100,
+      'optional':True
+    },
+    'treeMode':{
+      'label':'treeMode',
+      'type':mforms.StringColumnType,
+      'items': ['NestedSet', 'MaterializedPath'],
+      'default':'NestedSet',
+      'editable':True,
+      'width':100,
+      'optional':True
+    },
+    'reloadOnInsert':{
+      'label':'reloadOnInsert',
+      'type':mforms.CheckColumnType,
+      'default':0,
+      'editable':True,
+      'width':100,
+      'optional':True
+    },
+    'reloadOnUpdate':{
+      'label':'reloadOnUpdate',
+      'type':mforms.CheckColumnType,
+      'default':0,
+      'editable':True,
+      'width':100,
+      'optional':True
+    },
+    'allowPkInsert':{
+      'label':'allowPkInsert',
+      'type':mforms.CheckColumnType,
+      'default':0,
       'editable':True,
       'width':20,
       'optional':True

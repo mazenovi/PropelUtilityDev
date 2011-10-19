@@ -1,5 +1,6 @@
 import sys
 sys.path.append('./modules/PropelUtility')
+sys.path.append('./.mysql/workbench/modules/PropelUtility')
 # import the wb module
 from wb import *
 # import the grt module
