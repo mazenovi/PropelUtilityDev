@@ -33,6 +33,7 @@ class PropelTabDatabase(PropelTabGrid):
   def colmuns_name(self):
     self.widgets['database'].add_column(mforms.StringColumnType, 'attribute', 350, False)
     self.widgets['database'].add_column(mforms.StringColumnType, 'value', 350, True)
+    self.widgets['database'].end_columns()
     self.widgets['database'].add_activated_callback(getattr(self, 'activate_field'))
     self.widgets['database'].set_cell_edited_callback(getattr(self, 'edit_field'))
     self.find_rows(0)

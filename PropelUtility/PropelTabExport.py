@@ -19,13 +19,13 @@ VERSION = "1.0.0"
 class PropelTabExport(PropelTabFile):
 
   defaults = {
-    'export_schema_path':'',
     'export_FK_name':False,
-    'export_index':True,
+    'export_add_ai_on_pk':False,
+    'export_index':False,
     'export_index_name':False,
-    'export_unique':True,
+    'export_unique':False,
     'export_unique_name':False,
-    'export_add_ai_on_pk':True,
+    'export_schema_path':'schema.xml',
     'text_editor_width':830,
     'text_editor_height':300
   }

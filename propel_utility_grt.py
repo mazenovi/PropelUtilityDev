@@ -19,8 +19,8 @@ import new
 from PropelForm import *
 
 import PropelDatabase
-import PropelTabDatabase
 import PropelTabGrid
+import PropelTabDatabase
 import PropelTabTables
 import PropelTabColumns
 import PropelTabForeignKeys

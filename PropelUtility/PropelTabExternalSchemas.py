@@ -28,6 +28,7 @@ class PropelTabExternalSchemas(PropelTabFile):
   def colmuns_name(self):
     for fieldName in self.fields_list:
       self.widgets['external_schemas'].add_column(self.fields[fieldName]['type'], self.fields[fieldName]['label'], self.fields[fieldName]['width'], self.fields[fieldName]['editable'])
+    self.widgets['external_schemas'].end_columns()
     self.widgets['external_schemas'].set_cell_edited_callback(getattr(self, 'edit_field'))
     self.find_rows(0)
 

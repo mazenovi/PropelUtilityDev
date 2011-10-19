@@ -32,6 +32,7 @@ class PropelTabGrid(PropelTab):
   def colmuns_name(self, grid_name):
     for fieldName in self.fields_list:
       self.widgets[grid_name].add_column(self.fields[fieldName]['type'], self.fields[fieldName]['label'], self.fields[fieldName]['width'], self.fields[fieldName]['editable'])
+    self.widgets[grid_name].end_columns()
     self.widgets[grid_name].add_activated_callback(getattr(self, 'activate_field'))
     self.widgets[grid_name].set_cell_edited_callback(getattr(self, 'edit_field'))
     self.find_rows(0)
