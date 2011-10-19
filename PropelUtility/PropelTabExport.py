@@ -121,7 +121,7 @@ class PropelTabExport(PropelTabFile):
           external_schema.attrib[k] = PropelExternalSchema.fields[k]['default']
       external_schema = self.convert_bool_value(external_schema, PropelExternalSchema)
     self.indent(database)
-    return ET.tostring(database)
+    return '<?xml version="1.0" encoding="UTF-8"?>\r\n' + ET.tostring(database)
 
   def convert_bool_value(self, xmltag, associatedClass):
     for k, v in xmltag.attrib.iteritems():
