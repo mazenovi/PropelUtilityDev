@@ -101,12 +101,8 @@ class PropelUtilityGUI(mforms.Form):
   }
 
   defaults = {
-    'width':700,
+    'width':900,
     'height':700,
-    'fold_behaviors':True,
-    'export_FK_name':False,
-    'export_index':False,
-    'export_index_name':False,
     'tab_index':0
   }
 
@@ -133,11 +129,13 @@ class PropelUtilityGUI(mforms.Form):
     self.tvMain = mforms.newTabView(False)
     for name in self.tabs_list:
       tTab = getattr(self.tabs[name]['class'], self.tabs[name]['method'])(False, name, self.db)
+      if name == 'export':
+        exportTab = tTab
       self.tvMain.add_page(tTab, self.tabs[name]['name'])
     self.tvMain.relayout()
     self.tvMain.set_active_tab(int(self.db.get_tab_index))
-    #self.tvMain.add_tab_changed_callback(self.refresh_text_editor)
-    #self.refresh_text_editor()
+    self.tvMain.add_tab_changed_callback(lambda: exportTab.refresh_text_editor_schema_box())
+    
     box.add(self.tvMain, True, True)
     self.set_content(box)
     self.ui_ok_cancel_button(box)
