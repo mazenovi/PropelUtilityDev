@@ -21,7 +21,7 @@ class PropelTabIndices(PropelTabGrid):
     self.fields = PropelIndice.fields
     super(PropelTabIndices, self).__init__(bool, name)
     self.widgets['indices'] = mforms.newTreeView(1)
-    self.search()
+    self.search('indices')
     self.colmuns_name('indices')
     self.add_end(self.widgets['indices'], True, True)
 
@@ -29,10 +29,10 @@ class PropelTabIndices(PropelTabGrid):
     candidates = []
 
     for table in self.db.tables:
-      if self.widgets['search_pattern'].get_string_value() == "" or re.search(self.widgets['search_pattern'].get_string_value(), table.get_name):
+      if self.widgets['indices_search_pattern'].get_string_value() == "" or re.search(self.widgets['indices_search_pattern'].get_string_value(), table.get_name):
         candidates.append(table)
     self.widgets['indices'].clear_rows()
-    self.widgets['search_match_count'].set_text("%i table(s) found" % len(candidates))
+    self.widgets['indices_search_match_count'].set_text("%i table(s) found" % len(candidates))
     for table in candidates:
       for indice in table.indices:
         for column in indice.get_columnsName:

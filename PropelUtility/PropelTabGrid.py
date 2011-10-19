@@ -15,18 +15,18 @@ class PropelTabGrid(PropelTab):
     'popup_y':250
   }
 
-  def search(self):
+  def search(self, grid_name):
     tBox = PropelForm.spaced_box(True)
-    self.widgets['search_label'] = mforms.newLabel("table pattern")
-    tBox.add(self.widgets['search_label'], False, True)
-    self.widgets['search_pattern'] = mforms.newTextEntry()
-    tBox.add(self.widgets['search_pattern'], True, True)
-    self.widgets['search_button'] = mforms.newButton()
-    self.widgets['search_button'].set_text("matching tables")
-    self.widgets['search_match_count'] = mforms.newLabel("")
-    self.widgets['search_button'].add_clicked_callback(lambda: self.find_rows(0))
-    tBox.add(self.widgets['search_button'], False, True)
-    tBox.add(self.widgets['search_match_count'], False, True)
+    self.widgets[grid_name + '_search_label'] = mforms.newLabel("table pattern")
+    tBox.add(self.widgets[grid_name + '_search_label'], False, True)
+    self.widgets[grid_name + '_search_pattern'] = mforms.newTextEntry()
+    tBox.add(self.widgets[grid_name + '_search_pattern'], True, True)
+    self.widgets[grid_name + '_search_button'] = mforms.newButton()
+    self.widgets[grid_name + '_search_button'].set_text("matching tables")
+    self.widgets[grid_name + '_search_match_count'] = mforms.newLabel("")
+    self.widgets[grid_name + '_search_button'].add_clicked_callback(lambda: self.find_rows(0))
+    tBox.add(self.widgets[grid_name + '_search_button'], False, True)
+    tBox.add(self.widgets[grid_name + '_search_match_count'], False, True)
     self.add(tBox, False, True)
 
   def colmuns_name(self, grid_name):

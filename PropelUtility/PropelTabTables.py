@@ -36,17 +36,17 @@ class PropelTabTables(PropelTabGrid):
     self.fields = PropelTable.fields
     super(PropelTabTables, self).__init__(bool, name)
     self.widgets['tables'] = mforms.newTreeView(1)
-    self.search()
+    self.search('tables')
     self.colmuns_name('tables')
     self.add_end(self.widgets['tables'], True, True)
 
   def find_rows(self, selected_row):
     candidates = []
     for table in self.db.tables:
-      if self.widgets['search_pattern'].get_string_value() == "" or re.search(self.widgets['search_pattern'].get_string_value(), table.get_name):
+      if self.widgets['tables_search_pattern'].get_string_value() == "" or re.search(self.widgets['tables_search_pattern'].get_string_value(), table.get_name):
         candidates.append(table)
     self.widgets['tables'].clear_rows()
-    self.widgets['search_match_count'].set_text("%i table(s) found" % len(candidates))
+    self.widgets['tables_search_match_count'].set_text("%i table(s) found" % len(candidates))
     for table in candidates:
       row = self.widgets['tables'].add_row()
       for lineNumber, fieldName in enumerate(self.fields_list):

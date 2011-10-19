@@ -28,7 +28,7 @@ class PropelTabForeignKeys(PropelTabGrid):
     self.fields = PropelForeignKey.fields
     super(PropelTabForeignKeys, self).__init__(bool, name)
     self.widgets['foreign_keys'] = mforms.newTreeView(1)
-    self.search()
+    self.search('foreign_keys')
     self.colmuns_name('foreign_keys')
     self.add_end(self.widgets['foreign_keys'], True, True)
   
@@ -36,10 +36,10 @@ class PropelTabForeignKeys(PropelTabGrid):
     candidates = []
     
     for table in self.db.tables:
-      if self.widgets['search_pattern'].get_string_value() == "" or re.search(self.widgets['search_pattern'].get_string_value(), table.get_name):
+      if self.widgets['foreign_keys_search_pattern'].get_string_value() == "" or re.search(self.widgets['foreign_keys_search_pattern'].get_string_value(), table.get_name):
         candidates.append(table)
     self.widgets['foreign_keys'].clear_rows()
-    self.widgets['search_match_count'].set_text("%i table(s) found" % len(candidates))
+    self.widgets['foreign_keys_search_match_count'].set_text("%i table(s) found" % len(candidates))
     for table in candidates:
       for foreignKey in table.foreignKeys:
         for k, column in enumerate(foreignKey.wbObject.referencedColumns):

@@ -26,7 +26,7 @@ class PropelTabExport(PropelTabFile):
     'export_unique':False,
     'export_unique_name':False,
     'export_schema_path':'schema.xml',
-    'text_editor_width':830,
+    'text_editor_width':970,
     'text_editor_height':300
   }
 
