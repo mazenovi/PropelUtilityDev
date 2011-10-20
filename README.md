@@ -14,28 +14,45 @@ PropelUtility
 
 Installation
 ------------
+
 via the command line
-git clone git://github.com/mazenovi/PropelUtility.git
-or unzip the downloaded archive downloaded " from PropelUtility's github page  
-Copy the full project (i.e. propel_utility_grt.py and PropelUtility folder) in a MySQLWorkbench's "modules" folder.
+
+`git clone git://github.com/mazenovi/PropelUtility.git`
+
+or unzip the downloaded archive downloaded " from PropelUtility's github page
+  
+Copy the full project (i.e. `propel_utility_grt.py` and `PropelUtility` folder) in a MySQLWorkbench's "modules" folder.
+
 It can be in MySQLWorkbench's installation folder, with a path like this:
-* C:\Program Files\mysql-workbench\modules
-* ou /usr/lib/mysql-workbench/modules for linux
+
+* `C:\Program Files\mysql-workbench\modules`
+* ou `/usr/lib/mysql-workbench/modules` for linux
+ 
 or better a user folder, with a path like this:
-* C:\Users\username\AppData\Roaming\MySQL\Workbench\modules
-* /home/username/.mysql/workbench/modules for linux
-After you copied those files go to "Scripting" -> "Install Plugin / Module ..." browse to the file propel_utility_grt.py you just copied, select it, and restart MySQLWorkbench.
-PropelUtility add two new entries to MySQLWorkbench in "Plugins" -> "Catalog" :
-* "Propel Utility"
-* "Propel Erase All Data"
+
+* `C:\Users\username\AppData\Roaming\MySQL\Workbench\modules`
+* `/home/username/.mysql/workbench/modules` for linux
+ 
+After you copied those files go to `"Scripting" -> "Install Plugin / Module ..."` browse to the file `propel_utility_grt.py` you just copied, select it, and restart MySQLWorkbench.
+
+PropelUtility add two new entries to MySQLWorkbench in `"Plugins" -> "Catalog"` :
+
+* `"Propel Utility"`
+* `"Propel Erase All Data"`
+
 N.B. It's not exactly  the way to install a plugin. As PropelUtility is split in several files, you have to copy all project's files in the "modules" folder by hand, before installation in MySQLWrokbench.
 
 usage
 ------------
+
 Any changes on the Propel data with Propel Utility  will be validated after a click on the "OK" Button.
+
 If "CANCEL" is clicked, changes will be lost.
-To definitely save the Propel data, you should remember to save the .mwb file    
+
+To definitely save the Propel data, you should remember to save the .mwb file
+    
 There are 3 type fields:
+
 * the non-editable fields : they are for information only, MySQLworkbench can edit them but not PropelUtility
 * the editable fields : on click on those fields make them editable and you can change their value with a keyboard input
 * the editable fields with choices list : on click on those fields make them editable and you can change their value with a keyboard input, and a double click will show a list with all possible choices. Just select an item and click the "select this value" button
@@ -53,11 +70,14 @@ tabs
 
 customization
 ------------
-You can choose, order, resize evry fields by editing the "fields_list" list in associated tab class (for example PropelTabDatabase.py for Database tab) 
+
+You can choose, order, resize evry fields by editing the "fields_list" list in associated tab class (for example PropelTabDatabase.py for Database tab)
+ 
 You can add your own behaviors by adding new items to PropelBehavior.behaviors and PropelBehavior.fields['name']['items'] lists
 
 Propel Erase all data
 ================
+
 This entry can erase all Propel data managed by PropelUtility and only this data (MySQLWorkbench data will not be affected)
 
 TODO
