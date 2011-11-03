@@ -85,8 +85,8 @@ class PropelTabExport(PropelTabFile):
         foreign_key = self.convert_bool_value(foreign_key, PropelForeignKey)
         for k, col in enumerate(fk.wbObject.referencedColumns):
           reference = ET.SubElement(foreign_key, 'reference')
-          reference.attrib['localColumn'] = str(getattr(fk, 'get_localColumn_' + str(k)))
-          reference.attrib['foreignColumn'] = str(getattr(fk, 'get_foreignColumn_' + str(k)))
+          reference.attrib['local'] = str(getattr(fk, 'get_localColumn_' + str(k)))
+          reference.attrib['foreign'] = str(getattr(fk, 'get_foreignColumn_' + str(k)))
       for i in t.indices:
         if (i.get_indexType == 'UNIQUE' and self.widgets['export_unique'].get_bool_value()) or (i.get_indexType == 'INDEX' and self.widgets['export_index'].get_bool_value()):
           type = i.get_indexType.lower()
