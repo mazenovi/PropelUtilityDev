@@ -207,7 +207,8 @@ class PropelTable(PropelObject):
       behavior.save()
     if self.cache.has_key('behaviors'):
       self.wbObject.customData['behaviors'] = pickle.dumps(self.cache['behaviors'])
-
+    else:
+      del self.wbObject.customData['behaviors']
   def erase(self):
     for k in self.cache.keys():
       del self.cache[k]
