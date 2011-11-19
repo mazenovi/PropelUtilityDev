@@ -1,6 +1,6 @@
 If you look for a quick and easy way to install PropelUtility ...
 ------------
-You should look at this other repo
+You should look at this other repo  [https://github.com/mazenovi/PropelUtility](https://github.com/mazenovi/PropelUtility "https://github.com/mazenovi/PropelUtility")
 
 If want to contribute to PropelUtility  ...
 ------------
@@ -89,7 +89,7 @@ when you're done you can rebuild `propel_utility_grt.py` with
 
 Now you can test changes for the `propel_utility_grt.py` one file version with the `"Propel Utility"` entry
 
-When all it's ok for you, PR changes on PropelUtiltyDev repo and PR the new `propel_utility_build.py` on PropelUtilty repo
+When all it's ok for you, PR changes on [PropelUtiltyDev repo](https://github.com/mazenovi/PropelUtilityDev "PropelUtiltyDev repo") and PR the new `propel_utility_build.py` on [PropelUtilty repo](https://github.com/mazenovi/PropelUtility "PropelUtilty repo")
 
 PropelUtility
 =============
