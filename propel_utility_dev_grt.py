@@ -31,7 +31,7 @@ import PropelTabExport
 import PropelTabFile
 
 
-ModuleInfo = DefineModule(name= "Propel Utilities", author= "mazenovi", version="1.0")
+ModuleInfo = DefineModule(name= "Propel Utilities (Dev)", author= "mazenovi", version="1.0")
 
 class PropelUtilityGUI(mforms.Form):
   
@@ -169,18 +169,18 @@ class PropelUtilityGUI(mforms.Form):
   def run(self):
     self.run_modal(self.okButton, self.cancelButton)
 
-@ModuleInfo.plugin("wb.catalog.util.PropelUtility", caption= "Propel Utilty", input= [wbinputs.currentCatalog()], pluginMenu= "Catalog", type="standalone")
+@ModuleInfo.plugin("wb.catalog.util.PropelUtilityDev", caption= "Propel Utilty (Dev)", input= [wbinputs.currentCatalog()], pluginMenu= "Catalog", type="standalone")
 @ModuleInfo.export(grt.INT, grt.classes.db_Catalog)
 
-def PropelUtility(catalog):
+def PropelUtilityDev(catalog):
   form = PropelUtilityGUI(catalog)
   form.run()
   return 0
 
-@ModuleInfo.plugin("wb.catalog.util.PropelErase", caption= "Propel Erase All Data", input= [wbinputs.currentCatalog()], pluginMenu= "Catalog", type="standalone")
+@ModuleInfo.plugin("wb.catalog.util.PropelEraseDev", caption= "Propel Erase All Data (Dev)", input= [wbinputs.currentCatalog()], pluginMenu= "Catalog", type="standalone")
 @ModuleInfo.export(grt.INT, grt.classes.db_Catalog)
 
-def PropelErase(catalog):
+def PropelEraseDev(catalog):
   if mforms.Utilities.show_warning("Warning", "All propel data of you will be lost", "OK", "NO IT'S A JOKE", ""):
     db = PropelDatabase.PropelDatabase(grt.root.wb.doc.physicalModels[0].catalog)
     # have to store app prefernces in catalog.customData :/

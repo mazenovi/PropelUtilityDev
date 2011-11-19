@@ -1,99 +1,117 @@
+If you look for a quick and easy way to install PropelUtility ...
+------------
+You should look at this other repo
+
+If want to contribute to PropelUtility  ...
+------------
+You are at the right place \o/ 
+
 What is PropelUtility ?
 ------------
-**Propel Utility** is a python extension for MySQLWorkbench to manage your [Propel](http://www.propelorm.org) schemas.
-
-Using **Propel Utility** add following funcitonnalities to your MySQLWorkbench :
-
-* Create and convert to [Propel](http://www.propelorm.org) XML schema format an existing MySQLWorkbench shcema (*.mwb file)
-* Manage all the [Propel](http://www.propelorm.org)'s XML schema elements unsupported by MySQLWorkbench
-
-As **Propel Utility** is a python extension, so it can be used on any MySQLWorkbench anabled platform (Mac OS, Linux, Windows)
+* PropelUtility can create and export to xml format a Propel schema from an existant MySQLWorkbench shcema (*.mwb file) 
+* PropelUtility can manage all Propel's schema elements unsupported by MySQLWorkbench
+* PropelUtility is delivered as Python MySQLWorkbench plugin. in this it can be installed on Windows, Linux and Mac OS Platform
 
 What PropelUtility is not ...
 ------------
-* **PropelUtility** does not allow edition for data already managed with MySQLWorkbench
-* **PropelUtility** can't convert Propel schema to YAML format (use symfony propel:schema-to-yml instead)
+* PropelUtility can't manage any schema's data which is manageable with MySQLWorkbench
+* PropelUtility can't convert Propel schema to YAML format (use symfony propel:schema-to-yml instead)
 
-PropelUtility
+Why a PropelUtility and a PropelUtilityDev versions?
+------------
+
+MySQLWorkbench python modules should be in one file.
+There's some tips to install a python module with some dependances with linux, or windows, but none for mac os x.
+So PropelUtility is python module which fits in just one file, and PropelUtilityDev is python module splitted in several files, 
+which is more understandable (but unsuable on mac os system).
+
+PropelUtilityDev
 ================
 
 Installation
 ------------
 
-### Get the code
+via the command line
 
-First, place the full project (i.e. `propel_utility_grt.py` and `PropelUtility` folder) in your MySQLWorkbench installation **modules** folder.
+`git clone git://github.com/mazenovi/PropelUtilityDev.git`
+
+or unzip the downloaded archive downloaded " from PropelUtilityDev's github page
+  
+Copy the full project (i.e. `propel_utility_*.py` and `PropelUtility` folder) in a MySQLWorkbench's "modules" folder.
 
 It can be in MySQLWorkbench's installation folder, with a path like this:
 
 * `C:\Program Files\mysql-workbench\modules`
 * ou `/usr/lib/mysql-workbench/modules` for linux
-
-or even better in your user folder, with a path like this:
+ 
+or better a user folder, with a path like this:
 
 * `C:\Users\username\AppData\Roaming\MySQL\Workbench\modules`
 * `/home/username/.mysql/workbench/modules` for linux
  
+After you copied those files 
+* open MySQLWorkbench
+* go to `"Scripting" -> "Install Plugin / Module ..."` browse to the file `propel_utility_dev_grt.py` you just copied, select it
+* restart MySQLWorkbench
 
-#### via the command line
+PropelUtilityDev add two new entries to MySQLWorkbench in `"Plugins" -> "Catalog"` :
 
-`git clone git://github.com/mazenovi/PropelUtility.git`
+* `"Propel Utility (Dev)"`
+* `"Propel Erase All Data (Dev)"`
 
-#### From archive
+N.B. It's not exactly  the way to install a plugin. As PropelUtility is split in several files, you have to copy all project's files in the "modules" folder by hand, before installation in MySQLWrokbench.
 
-unzip archive downloaded from [PropelUtility's github page](https://github.com/mazenovi/PropelUtility).
-  
-### Install in MySQLWorkbench
-
-Open your MySQLWorkbench, and go to `"Scripting" -> "Install Plugin / Module ..."`
-Browse to the `propel_utility_grt.py` file you just copied, select, and restart MySQLWorkbench.
-
-You're done !
-
-    **N.B.** It's not exactly  the way to install a plugin. As PropelUtility is split in several files, 
-    you have to copy all project's files in the "modules" folder by hand, before installation in MySQLWrokbench.
-
-usage
-------------
-
-### General information
-
-**PropelUtility** add two new entries to MySQLWorkbench in `"Plugins" -> "Catalog"` :
+Build
+-----
+PropelUtilityDev is delivered with a rudimentary build script. 
+After the first build you should see two new entries to MySQLWorkbench in `"Plugins" -> "Catalog"` :
 
 * `"Propel Utility"`
 * `"Propel Erase All Data"`
 
-Any change on the Propel data with Propel Utility  will be validated after a click on the "OK" Button.
+If not try
+
+* open MySQLWorkbench
+* go to `"Scripting" -> "Install Plugin / Module ..."` browse to the generated file `propel_utility_grt.py`, select it
+* restart MySQLWorkbench.
+
+Contribute
+------ 
+Now can change PropelUtiltyDev's code and test with the `"Propel Utility (Dev)"` entry.
+
+MySQLWorkbench has to be restart to test every changes in the code :/
+
+You can see an output of errors with `CTRL + F2`
+
+when you're done you can rebuild `propel_utility_grt.py` with
+
+`python propel_utility_build.py`
+
+Now you can test changes for the `propel_utility_grt.py` one file version with the `"Propel Utility"` entry
+
+When all it's ok for you, PR changes on PropelUtiltyDev repo and PR the new `propel_utility_build.py` on PropelUtilty repo
+
+PropelUtility
+=============
+
+usage
+------------
+
+Any changes on the Propel data with Propel Utility  will be validated after a click on the "OK" Button.
 
 If "CANCEL" is clicked, changes will be lost.
 
 To definitely save the Propel data, you should remember to save the .mwb file
     
-### Field types
+There are 3 type fields:
 
-#### non-editable fields
-
-information purpose only. Can be edited through MySQLworkbench but not using **PropelUtility**.
-
-#### editable fields
-
-Clicking on those fields make them editable. Enter the new value to change it.
-
-#### editable fields with choices list
-
-Two ways are available to edit this kind of fields :
-
-* Single clicking on those fields make them editable.
-* Double clicking show a list of choices.
-
-You can wether use one of the suggested value by clicking on it and then press the "select this value", 
-or enter a custom value.
-
-    N.B. it seems that the choices are unavailable on linux.
+* the non-editable fields : they are for information only, MySQLworkbench can edit them but not PropelUtility
+* the editable fields : on click on those fields make them editable and you can change their value with a keyboard input
+* the editable fields with choices list : on click on those fields make them editable and you can change their value with a keyboard input, and a double click will show a list with all possible choices. Just select an item and click the "select this value" button
+N.B. it seems that the choices are unavailable on linux.
 
 tabs
 ------------
-
 * Database can manage attributes for [`<database />`] (http://www.propelorm.org/reference/schema.html#database_element) xml tag  
 * Tables can manage attributes for [`<table />`] (http://www.propelorm.org/reference/schema.html#table_element) xml tag 
 * Columns can manage attributes for [`<column />`] (http://www.propelorm.org/reference/schema.html#column_element) xml tag 
@@ -119,4 +137,4 @@ TODO
 * add an individual export box for each indice (<index /> or <unique />)
 * add "single inheritance" support
 * add a "Settings" tab to choose which column are showing or not in each tab 
-* add an "Import" tab to create MySQLWorkbench schema (*.mwb file) from an existing Propel schema.xml
+* -add-an-"Import"-tab-to-create-MySQLWorkbench-schema-(*.mwb-file)-from-an-existing-Propel-schema.xml-
