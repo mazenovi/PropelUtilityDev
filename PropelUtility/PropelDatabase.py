@@ -118,7 +118,12 @@ class PropelDatabase(PropelObject):
       externalSchemas = []
     for externalSchema in externalSchemas:
       self.externalSchemas.append(PropelExternalSchema(externalSchema, self))
-    
+  
+  def __getattr__(self, name):
+    if re.search('get_', name):
+      if name[4:] == 'name' and self.cache.has_key('name'):
+        return self.cache['name']
+    return super(PropelDatabase, self).__getattr__(name)
 
   def save(self):
     for k, v in self.cache.iteritems():
