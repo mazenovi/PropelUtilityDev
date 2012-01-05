@@ -2,6 +2,7 @@ from PropelObject import *
 from PropelTable import *
 from PropelExternalSchema import *
 import mforms
+import re
 
 __all__ = ["PropelDatabase"]
 
