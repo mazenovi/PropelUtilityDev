@@ -195,7 +195,8 @@ class PropelTable(PropelObject):
     # save associated Propel Columns
     for column in self.columns:
       column.save()
-    self.wbObject.customData['columns'] = pickle.dumps(self.cache['columns'])
+    if self.cache.has_key('columns'):
+      self.wbObject.customData['columns'] = pickle.dumps(self.cache['columns'])
     # save associated Propel foreign Keys
     for foreignKey in self.foreignKeys:
       foreignKey.save()
