@@ -14,7 +14,7 @@ class PropelBehavior(PropelObject):
     'alternative_coding_standards':('brackets_newline','remove_closing_comments','use_whitespace','tab_size','strip_comments'),
     'archivable':('archive_on_insert','archive_on_update','archive_on_delete','archive_class','archive_table','archived_at_column','log_archived_at'),
     'auto_add_pk':('name','autoIncrement', 'type'),
-    'delegate':('to'),
+    'delegate': ('to',),
     'i18n':('i18n_columns', 'default_locale', 'locale_column', 'i18n_table', 'i18n_phpname'),
     'nested_set':('left_column', 'right_column', 'level_column', 'use_scope', 'scope_column','method_proxies'),
     'query_cache':('backend', 'lifetime'),
