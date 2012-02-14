@@ -61,7 +61,7 @@ class PropelTable(PropelObject):
     'skipSql':{
       'label':'skipSql',
       'type':mforms.CheckColumnType,
-      'default':0,
+      'default':'0',
       'editable':True,
       'width':100,
       'optional':True
@@ -69,7 +69,7 @@ class PropelTable(PropelObject):
     'abstract':{
       'label':'abstract',
       'type':mforms.CheckColumnType,
-      'default':0,
+      'default':'0',
       'editable':True,
       'width':100,
       'optional':True
@@ -110,7 +110,7 @@ class PropelTable(PropelObject):
     'heavyIndexing':{
       'label':'heavyIndexing',
       'type':mforms.CheckColumnType,
-      'default':0,
+      'default':'0',
       'editable':True,
       'width':100,
       'optional':True
@@ -118,7 +118,7 @@ class PropelTable(PropelObject):
     'readOnly':{
       'label':'readOnly',
       'type':mforms.CheckColumnType,
-      'default':0,
+      'default':'0',
       'editable':True,
       'width':100,
       'optional':True
@@ -135,7 +135,7 @@ class PropelTable(PropelObject):
     'reloadOnInsert':{
       'label':'reloadOnInsert',
       'type':mforms.CheckColumnType,
-      'default':0,
+      'default':'0',
       'editable':True,
       'width':100,
       'optional':True
@@ -143,7 +143,7 @@ class PropelTable(PropelObject):
     'reloadOnUpdate':{
       'label':'reloadOnUpdate',
       'type':mforms.CheckColumnType,
-      'default':0,
+      'default':'0',
       'editable':True,
       'width':100,
       'optional':True
@@ -151,7 +151,7 @@ class PropelTable(PropelObject):
     'allowPkInsert':{
       'label':'allowPkInsert',
       'type':mforms.CheckColumnType,
-      'default':0,
+      'default':'0',
       'editable':True,
       'width':20,
       'optional':True
