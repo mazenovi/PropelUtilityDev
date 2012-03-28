@@ -19,6 +19,7 @@ class PropelTabTables(PropelTabGrid):
     'namespace',
     'skipSql',
     'abstract',
+    'isCrossRef',
     'phpNamingMethod',
     'baseClass',
     'basePeer',
