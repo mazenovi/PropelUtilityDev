@@ -53,65 +53,66 @@ class PropelTabExport(PropelTabFile):
         database.attrib[k] = PropelDatabase.fields[k]['default']
     database = self.convert_bool_value(database, PropelDatabase)
     for t in self.db.tables:
-      table = ET.SubElement(database, 'table')
-      for k, v in PropelTable.fields.iteritems():
-        if getattr(t, 'get_' + k) and getattr(t, 'get_' + k) != PropelTable.fields[k]['default']:
-          table.attrib[k] = getattr(t, 'get_' + k)
-        elif not PropelTable.fields[k]['optional']:
-          table.attrib[k] = PropelTable.fields[k]['default']
-      table = self.convert_bool_value(table, PropelTable)
-      for c in t.columns:
-        column = ET.SubElement(table, 'column')
-        for k, v in PropelColumn.fields.iteritems():
-          if k != 'table':
-            if getattr(c, 'get_' + k)  and getattr(c, 'get_' + k) != PropelColumn.fields[k]['default']:
-              column.attrib[k] = str(getattr(c, 'get_' + k))
-            elif c.get_primaryKey and k == 'autoIncrement' and self.widgets['export_add_ai_on_pk'].get_bool_value():
-              column.attrib[k] = 'True'
-            elif not PropelColumn.fields[k]['optional']:
-              column.attrib[k] = PropelColumn.fields[k]['default']
-        column = self.convert_bool_value(column, PropelColumn)
-      for fk in t.foreignKeys:
-        foreign_key = ET.SubElement(table, 'foreign-key')
-        for k, v in PropelForeignKey.fields.iteritems():
-          if k != 'table' and k != 'localColumn' and k!= 'foreignColumn':
-            if k == 'name':
-              if self.widgets['export_FK_name'].get_bool_value():
-                foreign_key.attrib[k] = str(getattr(fk, 'get_' + k))
-            elif getattr(fk, 'get_' + k) and getattr(fk, 'get_' + k) != PropelForeignKey.fields[k]['default']:
-              foreign_key.attrib[k] = str(getattr(fk, 'get_' + k))
-            elif not PropelForeignKey.fields[k]['optional']:
-              foreign_key.attrib[k] = PropelForeignKey.fields[k]['default']
-        foreign_key = self.convert_bool_value(foreign_key, PropelForeignKey)
-        for k, col in enumerate(fk.wbObject.referencedColumns):
-          reference = ET.SubElement(foreign_key, 'reference')
-          reference.attrib['local'] = str(getattr(fk, 'get_localColumn_' + str(k)))
-          reference.attrib['foreign'] = str(getattr(fk, 'get_foreignColumn_' + str(k)))
-      for i in t.indices:
-        if (i.get_indexType == 'UNIQUE' and self.widgets['export_unique'].get_bool_value()) or (i.get_indexType == 'INDEX' and self.widgets['export_index'].get_bool_value()):
-          type = i.get_indexType.lower()
-          indice = ET.SubElement(table, type)
-          for k, v in PropelIndice.fields.iteritems():
-            if k != 'columnName' and k != 'table' and k != 'indexType':
+      if t.get_export == '1':
+        table = ET.SubElement(database, 'table')
+        for k, v in PropelTable.fields.iteritems():
+          if getattr(t, 'get_' + k) and getattr(t, 'get_' + k) != PropelTable.fields[k]['default']:
+            table.attrib[k] = getattr(t, 'get_' + k)
+          elif not PropelTable.fields[k]['optional']:
+            table.attrib[k] = PropelTable.fields[k]['default']
+        table = self.convert_bool_value(table, PropelTable)
+        for c in t.columns:
+          column = ET.SubElement(table, 'column')
+          for k, v in PropelColumn.fields.iteritems():
+            if k != 'table':
+              if getattr(c, 'get_' + k)  and getattr(c, 'get_' + k) != PropelColumn.fields[k]['default']:
+                column.attrib[k] = str(getattr(c, 'get_' + k))
+              elif c.get_primaryKey and k == 'autoIncrement' and self.widgets['export_add_ai_on_pk'].get_bool_value():
+                column.attrib[k] = 'True'
+              elif not PropelColumn.fields[k]['optional']:
+                column.attrib[k] = PropelColumn.fields[k]['default']
+          column = self.convert_bool_value(column, PropelColumn)
+        for fk in t.foreignKeys:
+          foreign_key = ET.SubElement(table, 'foreign-key')
+          for k, v in PropelForeignKey.fields.iteritems():
+            if k != 'table' and k != 'localColumn' and k!= 'foreignColumn':
               if k == 'name':
-                if (i.get_indexType == 'UNIQUE' and self.widgets['export_unique_name'].get_bool_value()) or (i.get_indexType == 'INDEX' and self.widgets['export_index_name'].get_bool_value()):
+                if self.widgets['export_FK_name'].get_bool_value():
+                  foreign_key.attrib[k] = str(getattr(fk, 'get_' + k))
+              elif getattr(fk, 'get_' + k) and getattr(fk, 'get_' + k) != PropelForeignKey.fields[k]['default']:
+                foreign_key.attrib[k] = str(getattr(fk, 'get_' + k))
+              elif not PropelForeignKey.fields[k]['optional']:
+                foreign_key.attrib[k] = PropelForeignKey.fields[k]['default']
+          foreign_key = self.convert_bool_value(foreign_key, PropelForeignKey)
+          for k, col in enumerate(fk.wbObject.referencedColumns):
+            reference = ET.SubElement(foreign_key, 'reference')
+            reference.attrib['local'] = str(getattr(fk, 'get_localColumn_' + str(k)))
+            reference.attrib['foreign'] = str(getattr(fk, 'get_foreignColumn_' + str(k)))
+        for i in t.indices:
+          if (i.get_indexType == 'UNIQUE' and self.widgets['export_unique'].get_bool_value()) or (i.get_indexType == 'INDEX' and self.widgets['export_index'].get_bool_value()):
+            type = i.get_indexType.lower()
+            indice = ET.SubElement(table, type)
+            for k, v in PropelIndice.fields.iteritems():
+              if k != 'columnName' and k != 'table' and k != 'indexType':
+                if k == 'name':
+                  if (i.get_indexType == 'UNIQUE' and self.widgets['export_unique_name'].get_bool_value()) or (i.get_indexType == 'INDEX' and self.widgets['export_index_name'].get_bool_value()):
+                    indice.attrib[k] = str(getattr(i, 'get_' + k))
+                elif getattr(i, 'get_' + k):
                   indice.attrib[k] = str(getattr(i, 'get_' + k))
-              elif getattr(i, 'get_' + k):
-                indice.attrib[k] = str(getattr(i, 'get_' + k))
-              elif not PropelIndice.fields[k]['optional']:
-                indice.attrib[k] = PropelIndice.fields[k]['default']
-          for column_name in i.get_columnsName:
-            indice_column = ET.SubElement(indice, type + '-column')
-            indice_column.attrib['name'] = column_name
-          indice = self.convert_bool_value(indice, PropelIndice)
-      for k, b in enumerate(t.behaviors):
-        behavior = ET.SubElement(table, 'behavior')
-        behavior.attrib['name'] = b.get_name
-        for p in PropelBehavior.behaviors[b.get_name]:
-          if getattr(b, 'get_parameter_' + str(p)) != '':
-            parameter = ET.SubElement(behavior, 'parameter')
-            parameter.attrib['name'] = p
-            parameter.attrib['value'] = getattr(b, 'get_parameter_' + str(p))      
+                elif not PropelIndice.fields[k]['optional']:
+                  indice.attrib[k] = PropelIndice.fields[k]['default']
+            for column_name in i.get_columnsName:
+              indice_column = ET.SubElement(indice, type + '-column')
+              indice_column.attrib['name'] = column_name
+            indice = self.convert_bool_value(indice, PropelIndice)
+        for k, b in enumerate(t.behaviors):
+          behavior = ET.SubElement(table, 'behavior')
+          behavior.attrib['name'] = b.get_name
+          for p in PropelBehavior.behaviors[b.get_name]:
+            if getattr(b, 'get_parameter_' + str(p)) != '':
+              parameter = ET.SubElement(behavior, 'parameter')
+              parameter.attrib['name'] = p
+              parameter.attrib['value'] = getattr(b, 'get_parameter_' + str(p))      
     for k, es in enumerate(self.db.externalSchemas):
       external_schema = ET.SubElement(database, 'external-schema')
       for k, v in PropelExternalSchema.fields.iteritems():

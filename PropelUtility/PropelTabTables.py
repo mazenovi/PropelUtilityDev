@@ -12,6 +12,7 @@ class PropelTabTables(PropelTabGrid):
 
   fields_list = [
     'name',
+    'export',
     'idMethod',
     'phpName',
     'package',

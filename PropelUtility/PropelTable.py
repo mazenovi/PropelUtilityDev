@@ -17,6 +17,14 @@ class PropelTable(PropelObject):
       'width':100,
       'optional':False
     },
+    'export':{
+      'label':'export',
+      'type':mforms.CheckColumnType,
+      'default':'1',
+      'editable':True,
+      'width':100,
+      'optional':True
+    },
     'idMethod':{
       'label':'idMethod',
       'type':mforms.StringColumnType,
