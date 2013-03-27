@@ -14,7 +14,7 @@ class PropelDatabase(PropelObject):
     'name':{
       'label':'name',
       'type':mforms.StringColumnType,
-      'default':'propel',
+      'default':'default',
       'editable':False,
       'width':100,
       'optional':False
