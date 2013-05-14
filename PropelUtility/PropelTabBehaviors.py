@@ -3,6 +3,7 @@ from PropelBehavior import *
 from PropelForm import *
 import mforms
 import re
+import pickle
 
 __all__ = ["PropelTabBehaviors"]
 
@@ -17,15 +18,27 @@ class PropelTabBehaviors(PropelTabGrid):
     'value'
   ]
 
+  defaults = {
+    'extra_behaviors_path':'behaviors.py'
+  }
+
   def __init__(self, bool, name, db):
     self.db = db
+
+    if not self.db.wbObject.customData['extra_behaviors_path']:
+      self.db.cache['extra_behaviors_path'] = self.defaults['extra_behaviors_path']
+    else:
+      self.db.cache['extra_behaviors_path'] = self.db.wbObject.customData['extra_behaviors_path']
+
     self.fields = PropelBehavior.fields
-    self.behaviors = PropelBehavior.behaviors
+    self.fields['name']['items'] = sorted(PropelBehavior.getBehaviorsDict(self.db.cache['extra_behaviors_path']).keys())
+    self.behaviors = PropelBehavior.getBehaviorsDict(self.db.cache['extra_behaviors_path'])
     super(PropelTabBehaviors, self).__init__(bool, name)
     self.widgets['behaviors'] = mforms.newTreeView(1)
     self.search('behaviors')
     self.colmuns_name('behaviors')
-    self.add_remove_behavior_button()
+    self.browse_extra_behaviors_box()
+    self.add_remove_behavior_button()    
     self.add_end(self.widgets['behaviors'], True, True)
     
 
@@ -53,6 +66,20 @@ class PropelTabBehaviors(PropelTabGrid):
               self.widgets['behaviors'].set_string(row, lineNumber, str(getattr(behavior, 'get_' + fieldName)))
             elif self.fields[fieldName]['type'] == mforms.CheckColumnType:
               self.widgets['behaviors'].set_bool(row, lineNumber, int(getattr(behavior, 'get_' + fieldName)))
+        # we must add a line for behavior without any argument too
+        if len(self.behaviors[behavior.get_name]) == 0:
+          row = self.widgets['behaviors'].add_row()
+          for lineNumber, fieldName in enumerate(self.fields_list):
+            if fieldName == 'name':
+              self.widgets['behaviors'].set_string(row, lineNumber, str(behavior.get_name))
+            elif fieldName == 'parameter':
+              self.widgets['behaviors'].set_string(row, lineNumber, '')
+            elif fieldName == 'value':
+              self.widgets['behaviors'].set_string(row, lineNumber, '')
+            elif self.fields[fieldName]['type'] == mforms.StringColumnType:
+              self.widgets['behaviors'].set_string(row, lineNumber, '')
+            elif self.fields[fieldName]['type'] == mforms.CheckColumnType:
+              self.widgets['behaviors'].set_bool(row, lineNumber, '')
     self.widgets['behaviors'].set_selected(selected_row)
     
 
@@ -90,7 +117,7 @@ class PropelTabBehaviors(PropelTabGrid):
   def add_remove_behavior_button(self):
     tBox = PropelForm.spaced_box(True)
     self.widgets['selectBehaviors'] = mforms.newSelector(mforms.SelectorPopup)
-    self.widgets['selectBehaviors'].add_items(PropelBehavior.fields['name']['items'])
+    self.widgets['selectBehaviors'].add_items(sorted(PropelBehavior.getBehaviorsDict(self.widgets['extra_behaviors_path'].get_string_value()).keys()))
     tBox.add(self.widgets['selectBehaviors'], False, True)
     addBehavior = mforms.newButton()
     addBehavior.set_text("add selected behavior to selected table")
@@ -136,3 +163,29 @@ class PropelTabBehaviors(PropelTabGrid):
       self.find_rows(tableIndex)
     else:
       mforms.Utilities.show_warning("Warning", "Please select a behavior row with a not null 'behavior' column to remove this behavior", "OK", "", "")
+
+  def browse_extra_behaviors_box(self):
+    tBox = PropelForm.spaced_box(True)
+    label = mforms.newLabel("extra behaviors")
+    tBox.add(label, False, True)
+    self.widgets['extra_behaviors_path'] = mforms.newTextEntry()
+    self.widgets['extra_behaviors_path'].set_value(self.db.cache['extra_behaviors_path'])
+    tBox.add(self.widgets['extra_behaviors_path'], True, True)
+    self.widgets['extra_behaviors_file'] = mforms.newFileChooser(mforms.OpenFile)
+    self.widgets['extra_behaviors_file'].set_extensions('Python files (*.py)|*.py','py')
+    self.widgets['extra_behaviors_file'].set_title("extra behaviors file")
+    browse = mforms.newButton()
+    browse.set_text("Browse")
+    browse.add_clicked_callback(lambda: self.browse_schema())
+    tBox.add(browse, False, True)
+    label = mforms.newLabel("see http://m4z3.me/extra_behaviors for details")
+    tBox.add(label, False, True)
+    self.add_end(tBox, False, True)
+
+  def browse_schema(self):
+    self.widgets['extra_behaviors_file'].run_modal()
+    self.widgets['extra_behaviors_path'].set_value(self.widgets['extra_behaviors_file'].get_path())
+    self.db.cache['extra_behaviors_path'] = self.widgets['extra_behaviors_path'].get_string_value()
+    self.widgets['selectBehaviors'].clear()
+    self.widgets['selectBehaviors'].add_items(sorted(PropelBehavior.getBehaviorsDict(self.widgets['extra_behaviors_path'].get_string_value()).keys()))
+      

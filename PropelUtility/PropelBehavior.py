@@ -1,7 +1,9 @@
 from PropelObject import *
 import mforms
-import pickle
 import re
+import os
+import sys
+
 
 __all__ = ["PropelBehavior"]
 
@@ -40,21 +42,7 @@ class PropelBehavior(PropelObject):
       'default':'',
       'editable':False,
       'width':100,
-      'items': [
-        'aggregate_column',
-        'alternative_coding_standards',
-        'archivable',
-        'auto_add_pk',
-        'concrete_inheritance',
-        'delegate',
-        'i18n',
-        'nested_set',
-        'query_cache',
-        'sluggable',
-        'sortable',
-        'timestampable',
-        'versionable'
-    ],
+      'items': [],
       'optional':False
     },
     'parameter':{
@@ -80,6 +68,22 @@ class PropelBehavior(PropelObject):
     if not behavior.has_key('parameters'):
       behavior['parameters'] = {}
     self.cache = behavior
+
+  @staticmethod
+  def getBehaviorsDict(extra_behaviors_path):
+    if(extra_behaviors_path and os.path.isfile(extra_behaviors_path)):
+      sys.path.append(os.path.dirname(extra_behaviors_path))
+      try: 
+        module =  __import__('PropelExtraBehavior')
+      except ImportError:
+        module = False
+      if hasattr(module, 'PropelExtraBehavior'):        
+        BehaviorsDict = PropelBehavior.behaviors
+        for behavior_name in module.PropelExtraBehavior.behaviors.keys():
+          if not behavior_name in  BehaviorsDict.keys():
+            BehaviorsDict[behavior_name] = module.PropelExtraBehavior.behaviors[behavior_name]
+        return BehaviorsDict
+    return PropelBehavior.behaviors
   
   def __getattr__(self, name):
     if name[:14] == 'get_parameter_':

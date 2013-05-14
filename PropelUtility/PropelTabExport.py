@@ -37,6 +37,7 @@ class PropelTabExport(PropelTabFile):
         self.db.cache[k] = v
       else:
         self.db.cache[k] = self.db.wbObject.customData[k]
+    self.propelBehaviorsDict = PropelBehavior.getBehaviorsDict(self.db.cache['extra_behaviors_path'])
     super(PropelTabExport, self).__init__(bool, name)
     self.options_schema_box()
     self.text_editor_schema_box()
@@ -108,7 +109,7 @@ class PropelTabExport(PropelTabFile):
         for k, b in enumerate(t.behaviors):
           behavior = ET.SubElement(table, 'behavior')
           behavior.attrib['name'] = b.get_name
-          for p in PropelBehavior.behaviors[b.get_name]:
+          for p in self.propelBehaviorsDict[b.get_name]:
             if getattr(b, 'get_parameter_' + str(p)) != '':
               parameter = ET.SubElement(behavior, 'parameter')
               parameter.attrib['name'] = p
