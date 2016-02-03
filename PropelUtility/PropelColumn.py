@@ -69,7 +69,6 @@ class PropelColumn(PropelObject):
     'phpType':{
       'label':'phpType',
       'type':mforms.StringColumnType,
-      'items': ['boolean', 'int', 'integer', 'double', 'float', 'string'],
       'default':'',
       'editable':True,
       'width':100,
