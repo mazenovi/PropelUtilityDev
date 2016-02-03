@@ -67,7 +67,10 @@ class PropelTabExport(PropelTabFile):
           for k, v in PropelColumn.fields.iteritems():
             if k != 'table':
               if getattr(c, 'get_' + k)  and getattr(c, 'get_' + k) != PropelColumn.fields[k]['default']:
-                column.attrib[k] = str(getattr(c, 'get_' + k))
+                if k != 'defaultValue':
+                  column.attrib[k] = str(getattr(c, 'get_' + k))
+                else:
+                    column.attrib[k] = str(getattr(c, 'get_' + k)).strip("'")
               elif c.get_primaryKey and k == 'autoIncrement' and self.widgets['export_add_ai_on_pk'].get_bool_value():
                 column.attrib[k] = 'True'
               elif not PropelColumn.fields[k]['optional']:
